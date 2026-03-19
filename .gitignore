@@ -19,7 +19,6 @@ db.sqlite3
 # Django files
 *.log
 local_settings.py
-staticfiles/
 
 # IDE and OS files
 .DS_Store

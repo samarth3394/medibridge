@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Appointments</h2>
+    <a href="{% url 'appointment_create' %}" class="badge completed" style="text-decoration: none; padding: 8px 16px; font-size: 1rem;">+ Book Appointment</a>
+</div>
+
+<table class="data-table" style="margin-top: 20px;">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date & Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appt in appointments %}
+        <tr>
+            <td>{{ appt.patient.name }}</td>
+            <td>Dr. {{ appt.doctor.name }}</td>
+            <td>{{ appt.date|date:"F j, Y, P" }}</td>
+            <td><span class="badge {{ appt.status }}">{{ appt.status|title }}</span></td>
+            <td>
+                {% if appt.status == 'scheduled' %}
+                <form action="{% url 'appointment_cancel' appt.pk %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="badge cancelled" style="border: none; cursor: pointer;">Cancel</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No appointments found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

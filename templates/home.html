@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section glass animate-slide-up">
+    <div class="hero-content">
+        <h1 class="gradient-text">Next-Gen Healthcare Management</h1>
+        <p>Seamlessly manage patients, doctors, and appointments with our beautiful, modern infrastructure designed for world-class hospitals.</p>
+        <a href="{% url 'appointment_create' %}" class="btn-primary glowing-btn">Book Appointment</a>
+    </div>
+    <div class="hero-illustration floating">
+        <svg viewBox="0 0 200 200" width="250" height="250" stroke="var(--teal)" stroke-width="2" fill="none">
+            <!-- Medical Cross 3D effect -->
+            <path d="M70 50V30h60v20M90 90h20v40H90zM40 90h20m-20 30h20m80-30h20m-20 30h20"/>
+            <rect x="30" y="30" width="140" height="140" rx="20" stroke="var(--primary-blue)" opacity="0.2"/>
+            <rect x="20" y="20" width="160" height="160" rx="30" stroke="var(--light-blue)" opacity="0.4"/>
+            <path d="M100 20 L20 100 L100 180 L180 100 Z" stroke="var(--teal)" opacity="0.1" fill="rgba(60,180,200,0.05)"/>
+            <circle cx="100" cy="100" r="40" fill="var(--glass-bg)" stroke="var(--primary-blue)"/>
+            <path d="M100 85v30M85 100h30" stroke="var(--teal)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+    </div>
+</section>
+
+<!-- Dashboard Stats -->
+<div class="dashboard-cards stagger-animate">
+    <div class="card glass tiltable animate-slide-up" style="transition-delay: 0.1s;">
+        <div class="card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <h3>Total Patients</h3>
+        <p class="stat">{{ total_patients }}</p>
+    </div>
+    <div class="card glass tiltable animate-slide-up" style="transition-delay: 0.2s;">
+        <div class="card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
+        <h3>Total Doctors</h3>
+        <p class="stat">{{ total_doctors }}</p>
+    </div>
+    <div class="card glass tiltable animate-slide-up" style="transition-delay: 0.3s;">
+        <div class="card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h3>Appointments</h3>
+        <p class="stat">{{ total_appointments }}</p>
+    </div>
+</div>
+
+<div class="recent-section animate-slide-up" style="transition-delay: 0.4s;">
+    <h2>Recent Appointments</h2>
+    <div class="table-container glass tiltable">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appt in recent_appointments %}
+                <tr>
+                    <td><strong>{{ appt.patient.name }}</strong></td>
+                    <td>Dr. {{ appt.doctor.name }}</td>
+                    <td>{{ appt.date|date:"M d, Y H:i" }}</td>
+                    <td><span class="status-badge {{ appt.status }}">{{ appt.status|title }}</span></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No recent appointments.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

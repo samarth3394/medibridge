@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Doctors</h2>
+    <a href="{% url 'doctor_create' %}" class="badge completed" style="text-decoration: none; padding: 8px 16px; font-size: 1rem;">+ Add Doctor</a>
+</div>
+
+<form method="GET" style="margin-bottom: 20px;">
+    <input type="text" name="q" placeholder="Search doctors..." style="padding: 8px; width: 300px; border-radius: 4px; border: 1px solid #ccc;">
+    <button type="submit" style="padding: 8px 16px; background: var(--secondary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+</form>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Availability</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.name }}</td>
+            <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.availability }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No doctors found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

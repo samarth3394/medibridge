@@ -1,0 +1,34 @@
+# Python
+*.pyc
+*~
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+.env
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Django files
+*.log
+local_settings.py
+staticfiles/
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+
+# Custom Scripts
+build_ui.py
+build_templates.py
+parser.py
+error.txt
+error_utf8.txt

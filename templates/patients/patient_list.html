@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Patients</h2>
+    <a href="{% url 'patient_create' %}" class="badge completed" style="text-decoration: none; padding: 8px 16px; font-size: 1rem;">+ Add Patient</a>
+</div>
+
+<form method="GET" style="margin-bottom: 20px;">
+    <input type="text" name="q" placeholder="Search patients..." style="padding: 8px; width: 300px; border-radius: 4px; border: 1px solid #ccc;">
+    <button type="submit" style="padding: 8px 16px; background: var(--secondary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+</form>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Contact</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.get_gender_display }}</td>
+            <td>{{ patient.contact }}</td>
+            <td>
+                <form action="{% url 'patient_delete' patient.pk %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="badge cancelled" style="border: none; cursor: pointer;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No patients found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 0 auto; text-align: left;">
+    <h2 style="text-align: center;">Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-outline" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 10px; cursor: pointer; margin-top: 10px; border-radius: 4px;">Login</button>
+    </form>
+</div>
+{% endblock %}

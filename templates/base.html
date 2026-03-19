@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPluse - Hospital Management System</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <!-- Loading Animation -->
+    <div id="loader" class="loader-wrapper">
+        <svg class="heartbeat-svg" viewBox="0 0 200 100">
+            <polyline points="0,50 50,50 65,20 80,80 95,50 200,50" class="pulse-line" />
+        </svg>
+    </div>
+
+    <!-- Background Particles -->
+    <div class="bg-particles"></div>
+
+    <nav class="navbar glass">
+        <div class="logo">
+            <svg class="heartbeat-anim" viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+                stroke-width="2.5" fill="none">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+            MedPluse
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="{% url 'home' %}">Dashboard</a></li>
+            <li><a href="{% url 'patient_list' %}">Patients</a></li>
+            <li><a href="{% url 'doctor_list' %}">Doctors</a></li>
+            <li><a href="{% url 'appointment_list' %}">Appointments</a></li>
+            {% if user.is_authenticated %}
+            <li class="no-underline"><a href="{% url 'logout' %}" class="btn-primary">Logout ({{ user.username }})</a>
+            </li>
+            {% else %}
+            <li class="no-underline"><a href="{% url 'login' %}" class="btn-primary">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container fade-in">
+        <!-- Flash Messages -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} glass" style="padding:1rem; margin-bottom:1rem;">{{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

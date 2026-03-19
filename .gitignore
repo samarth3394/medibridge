@@ -12,9 +12,7 @@ env/
 ENV/
 .env
 
-# Database
-db.sqlite3
-*.sqlite3
+# Database allowed for Vercel seeding
 
 # Django files
 *.log

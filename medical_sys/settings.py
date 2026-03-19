@@ -80,10 +80,21 @@ WSGI_APPLICATION = 'medical_sys.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+import shutil
+if os.environ.get('VERCEL') == '1':
+    db_path = '/tmp/db.sqlite3'
+    if not os.path.exists(db_path):
+        try:
+            shutil.copy(BASE_DIR / 'db.sqlite3', db_path)
+        except Exception:
+            pass
+else:
+    db_path = BASE_DIR / 'db.sqlite3'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': db_path,
     }
 }
 

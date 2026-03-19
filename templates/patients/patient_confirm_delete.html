@@ -5,8 +5,8 @@
     <p>Are you sure you want to delete patient "{{ patient.name }}"?</p>
     <form method="POST">
         {% csrf_token %}
-        <button type="submit" style="padding: 10px 20px; background: var(--error); color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Yes, Delete</button>
-        <a href="{% url 'patient_list' %}" style="text-decoration: none; color: var(--primary-color);">Cancel</a>
+        <button type="submit" style="padding: 10px 20px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Yes, Delete</button>
+        <a href="{% url 'patient_list' %}" style="text-decoration: none; color: var(--primary-blue);">Cancel</a>
     </form>
 </div>
 {% endblock %}
